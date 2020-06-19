@@ -16,6 +16,7 @@ function App() {
     <Root>
       <nav>
         <Link to="/">Builder</Link>
+        <Link to="/interviews">Interviews</Link>
       </nav>
       <div className="content">
         <React.Suspense fallback={<em>Loading...</em>}>

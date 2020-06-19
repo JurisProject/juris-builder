@@ -8,7 +8,7 @@ import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
 import 'survey-react/modern.css';
 
-const Interview = ({json, output, view, className, onUpdate, onComplete}) => {
+const Interview = ({json, output, className, onUpdate, onComplete}) => {
     const [model, setModel] = useState(false);
 
     useEffect(() => {
