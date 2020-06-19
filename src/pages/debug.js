@@ -7,9 +7,9 @@ import Axios from 'axios';
 
 // import Builder from '../components/Builder';
 
-const CodeEditor = lazy(() => import(`../components/Builder/CodeEditor`) );
-const Interview = lazy(() => import(`../components/Builder/Interview`) );
-const DocumentPreview = lazy(() => import(`../components/Builder/DocumentPreview`) );
+const CodeEditor = lazy(() => import(`../components/JBBuilder/JBCodeEditor`) );
+const Interview = lazy(() => import(`../components/JBBuilder/JBInterview`) );
+const DocumentPreview = lazy(() => import(`../components/JBBuilder/JBDocumentPreview`) );
 
 const Home = (props) => {
 

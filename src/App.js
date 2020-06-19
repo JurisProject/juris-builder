@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Root, Routes, addPrefetchExcludes } from 'react-static'
 //
-import { Link, Router } from 'components/Router'
+import { Router } from 'components/Router'
 import Dynamic from 'containers/Dynamic'
+import JBNavBar from './layout/JBNavBar'
 
 import './app.css'
 
@@ -12,12 +13,10 @@ import './app.scss'
 addPrefetchExcludes(['dynamic'])
 
 function App() {
+
   return (
     <Root>
-      <nav>
-        <Link to="/">Builder</Link>
-        <Link to="/interviews">Interviews</Link>
-      </nav>
+      <JBNavBar />
       <div className="content">
         <React.Suspense fallback={<em>Loading...</em>}>
           <Router>

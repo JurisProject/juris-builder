@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { Card, CardBody, Container, Spinner } from 'reactstrap';
 
 
-const InterviewContainer = lazy(() => import('../components/Builder/Interview'));;
+const InterviewContainer = lazy(() => import('../components/JBBuilder/JBInterview'));;
 
 const Interview = () => {
     const {interview} = useRouteData();

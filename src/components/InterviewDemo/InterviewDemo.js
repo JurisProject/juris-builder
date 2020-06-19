@@ -3,8 +3,8 @@ import React, {lazy, Suspense, useState, useEffect} from 'react';
 import {Spinner, Card, CardBody, CardFooter, Button, CardHeader} from 'reactstrap';
 import Axios from 'axios';
 
-const Interview = lazy(() => import(`../Builder/Interview`) );
-const DocumentPreview = lazy(() => import(`../Builder/DocumentPreview`) );
+const Interview = lazy(() => import(`../JBBuilder/JBInterview`) );
+const DocumentPreview = lazy(() => import(`../JBBuilder/JBDocumentPreview`) );
 
 const InterviewDemo = () => {
 
@@ -12,7 +12,7 @@ const InterviewDemo = () => {
     const [interview, setInterview] = useState(false);
     const [template, setTemplate] = useState(false);
 
-    const interviewFile = "https://raw.githubusercontent.com/konstantinbrazhnik/juris-surveys/master/test/testsurvey.json";
+    const interviewFile = "https://raw.githubusercontent.com/konstantinbrazhnik/juris-surveys/master/test/interview.json";
     const mdTemplate = "https://raw.githubusercontent.com/konstantinbrazhnik/juris-surveys/master/test/output.md";
 
     useEffect(() => {
