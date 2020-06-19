@@ -1,0 +1,7 @@
+@import '../../../node_modules/juris-branding/SCSS/colors.scss';
+@import '../../../node_modules/juris-branding/SCSS/fonts.scss';
+
+$font-family: $font-family-sans-serif;
+$main-color: $primary;
+
+@import './main.scss';

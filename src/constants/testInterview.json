@@ -1,0 +1,47 @@
+{
+    "title": "Test Interview",
+    "pages": [
+     {
+      "name": "Email",
+      "elements": [
+       {
+        "type": "text",
+        "name": "clientEmail",
+        "title": "Your Email",
+        "isRequired": true,
+        "inputType": "email"
+       },
+       {
+        "type": "text",
+        "name": "name",
+        "title": "Your Name",
+        "isRequired": true
+       }
+      ],
+      "title": "Personal Information"
+     },
+     {
+      "name": "Topic",
+      "elements": [
+       {
+        "type": "text",
+        "name": "subject",
+        "title": "Subject Matter",
+        "isRequired": true
+       }
+      ],
+      "title": "Your Subject Matter"
+     },
+     {
+      "name": "Signature",
+      "elements": [
+       {
+        "type": "signaturepad",
+        "name": "clientSignature",
+        "title": "Your Signature",
+        "isRequired": true
+       }
+      ]
+     }
+    ]
+   }

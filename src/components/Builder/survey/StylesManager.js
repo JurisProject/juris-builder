@@ -1,0 +1,1 @@
+export {StylesManager as default} from 'survey-react';
