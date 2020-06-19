@@ -1,5 +1,7 @@
 # Juris Builder
 
+This is our document builde, we'll get better docs up soon.
+
 ## How to Run
 
 This repository is based on the `react-static` starter with minimal infrastructural alteration.
