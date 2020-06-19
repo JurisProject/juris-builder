@@ -8,6 +8,7 @@ import JBNavBar from './layout/JBNavBar'
 import './app.css'
 
 import './app.scss'
+import JBFooter from './layout/JBFooter'
 
 // Any routes that start with 'dynamic' will be treated as non-static routes
 addPrefetchExcludes(['dynamic'])
@@ -15,9 +16,9 @@ addPrefetchExcludes(['dynamic'])
 function App() {
 
   return (
-    <Root>
+    <Root className="d-flex">
       <JBNavBar />
-      <div className="content">
+      <div className="content flex-fill">
         <React.Suspense fallback={<em>Loading...</em>}>
           <Router>
             <Dynamic path="dynamic" />
@@ -25,6 +26,7 @@ function App() {
           </Router>
         </React.Suspense>
       </div>
+      <JBFooter />
     </Root>
   )
 }

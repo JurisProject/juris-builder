@@ -1,0 +1,14 @@
+@import '../variables';
+
+.home-demo-hero {
+    height: calc(100vh - #{$navbar-brand-height} - #{$spacer});
+
+    &>.col {
+        max-height: 100%;
+    }
+}
+
+.tech-logo {
+    max-height: 50px;
+    margin-bottom: $global-padding;
+}

@@ -10,8 +10,8 @@ const JBNavBar = () => {
 
     return (
         <Navbar expand="md" dark color="dark">
-        <NavbarBrand>
-          <img src={JurisLogo} alt="Juris, PBC" width="150"/>
+        <NavbarBrand tag={Link} to="/">
+            <img src={JurisLogo} alt="Juris, PBC"/>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -21,6 +21,9 @@ const JBNavBar = () => {
             </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/interviews">Interviews</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink href="https://github.com/JurisProject/juris-builder" target="_blank">GitHub</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

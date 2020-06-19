@@ -1,7 +1,8 @@
-import React, {lazy, Suspense, useState, useEffect} from 'react';
-
+import React, {lazy, Suspense, useState, useEffect, Fragment} from 'react';
 import {Spinner, Card, CardBody, CardFooter, Button, CardHeader} from 'reactstrap';
 import Axios from 'axios';
+
+// import "./InterviewDemo.scss";
 
 const Interview = lazy(() => import(`../JBBuilder/JBInterview`) );
 const DocumentPreview = lazy(() => import(`../JBBuilder/JBDocumentPreview`) );
@@ -38,12 +39,14 @@ const InterviewDemo = () => {
     const restartInterview = () => setData(false);
 
     return(
-        <Card>
+        <Card style={{height: "100%"}}>
             <CardHeader>Sample Interview</CardHeader>
-            <CardBody>
+            <CardBody style={{overflow: "auto"}}>
             <div className="interview-demo">
                 <Suspense fallback={<Spinner />}>
-                    {data ? <DocumentPreview data={data} mdTemplate={template} /> : <Interview json={interview} onComplete={onComplete} />}
+                    {!!interview && <Fragment>
+                        {data ? <DocumentPreview data={data} mdTemplate={template} /> : <Interview json={interview} onComplete={onComplete} />}
+                    </Fragment>}
                 </Suspense>
             </div>
             </CardBody>
