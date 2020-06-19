@@ -4,7 +4,6 @@ import { Link } from 'components/Router'
 
 const InterviewCard = ({i}) => {
     const info = i['interview.json'];
-    console.log({info});
     return (
         <Card>
             <CardBody>

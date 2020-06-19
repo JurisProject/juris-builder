@@ -16,8 +16,6 @@ const Interview = () => {
         "output.md": mdTemplate
     } = interview;
 
-    console.log({page, json, mdTemplate});
-
     return (
         <Container>
             <Card className="mb-4">

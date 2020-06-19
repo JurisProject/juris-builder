@@ -11,7 +11,6 @@ export default () => {
         <Row>
             <Col className="d-flex align-items-center">
                 <h1 className="text-center">Simply the Easiest Document Builder. Ever.</h1>
-                <h2>{process.env.REACT_APP_ENV_VAR}</h2>
             </Col>
             <Col>
                 <InterviewDemo />
