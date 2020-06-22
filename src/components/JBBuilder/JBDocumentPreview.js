@@ -90,8 +90,6 @@ export default Document;
 
         content.push({text, style});
 
-        console.log({text, style});
-
         if (depth === 0) content.push('\n');
 
         return c;
