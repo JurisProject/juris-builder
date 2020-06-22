@@ -1,5 +1,4 @@
 import React, {Fragment, useState, useEffect} from 'react';
-import qs from 'query-string';
 import {Row, Col, Card, CardBody, FormGroup, Label, Input, Spinner} from 'reactstrap';
 import classNames from 'classnames';
 
@@ -10,10 +9,10 @@ import 'survey-react/modern.css';
 
 const Interview = ({json, output, className, onUpdate, onComplete}) => {
     const [model, setModel] = useState(false);
+    Survey.StylesManager.applyTheme("modern");
 
     useEffect(() => {
         setupSurveyModel();
-        Survey.StylesManager.applyTheme("modern");
     },[]);
 
     function setupSurveyModel() {

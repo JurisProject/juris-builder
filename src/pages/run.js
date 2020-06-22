@@ -1,9 +1,10 @@
 import React, {useState, useEffect, Suspense, lazy} from 'react';
 import qs from 'query-string';
-import {Row, Col, Card, CardBody, FormGroup, Label, Input, Spinner} from 'reactstrap';
+import {Spinner, Container} from 'reactstrap';
 
 import testInterview from '../constants/testInterview.json';
 import Axios from 'axios';
+import Loader from '../components/Loader/Loader';
 
 // import Builder from '../components/Builder';
 
@@ -40,7 +41,6 @@ const Home = (props) => {
     },[]);
 
     function setupSurveyModel(interviewJson) {
-        console.log({interviewJson});
         setJson(interviewJson);
     }
 
@@ -49,41 +49,11 @@ const Home = (props) => {
     }
 
     return (
-        <Row>
-            <Col>
-
-            <h1>Builder</h1>
-
-            <Suspense fallback={<Spinner />}>
-                <Row>
-                    <Col>
-                        <Card className="mb-4">
-                            <CardBody>
-                                <FormGroup>
-                                    <Label>Interview File URL</Label>
-                                    {!!interviewFile && <Input name="interviewurl" defaultValue={interviewFile} />}
-                                </FormGroup>
-                            </CardBody>
-                        </Card>
-                        <CodeEditor json={json} />
-                    </Col>
-                    <Col>
-                        <Card className="mb-4">
-                            <CardBody>
-                                <Interview json={json} onUpdate={onInterviewUpdate} />
-                            </CardBody>
-                        </Card>
-                        {!!template && <Card>
-                            <CardBody>
-                                <DocumentPreview data={formData} mdTemplate={template} />
-                            </CardBody>
-                        </Card>}
-                    </Col>
-                </Row>
+        <Container style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+            <Suspense fallback={<Loader />}>
+                {json ? <Interview json={json} onUpdate={onInterviewUpdate} /> : <Loader />}
             </Suspense>
-
-            </Col>
-        </Row>
+        </Container>
     )
 }
 

@@ -66,7 +66,6 @@ export default {
         interviews.push(interview);
       }
 
-      console.log({interviews});
       paths.push({
         path: '/interviews',
         getData: () => ({

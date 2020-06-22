@@ -1,10 +1,11 @@
-import React, {lazy, Suspense, useState, useEffect} from 'react';
-
+import React, {lazy, Suspense, useState, useEffect, Fragment} from 'react';
 import {Spinner, Card, CardBody, CardFooter, Button, CardHeader} from 'reactstrap';
 import Axios from 'axios';
 
-const Interview = lazy(() => import(`../Builder/Interview`) );
-const DocumentPreview = lazy(() => import(`../Builder/DocumentPreview`) );
+// import "./InterviewDemo.scss";
+
+const Interview = lazy(() => import(`../JBBuilder/JBInterview`) );
+const DocumentPreview = lazy(() => import(`../JBBuilder/JBDocumentPreview`) );
 
 const InterviewDemo = () => {
 
@@ -12,7 +13,7 @@ const InterviewDemo = () => {
     const [interview, setInterview] = useState(false);
     const [template, setTemplate] = useState(false);
 
-    const interviewFile = "https://raw.githubusercontent.com/konstantinbrazhnik/juris-surveys/master/test/testsurvey.json";
+    const interviewFile = "https://raw.githubusercontent.com/konstantinbrazhnik/juris-surveys/master/test/interview.json";
     const mdTemplate = "https://raw.githubusercontent.com/konstantinbrazhnik/juris-surveys/master/test/output.md";
 
     useEffect(() => {
@@ -38,12 +39,14 @@ const InterviewDemo = () => {
     const restartInterview = () => setData(false);
 
     return(
-        <Card>
+        <Card style={{height: "100%"}}>
             <CardHeader>Sample Interview</CardHeader>
-            <CardBody>
-            <div className="interview-demo">
+            <CardBody style={{overflow: "auto"}}>
+            <div className="interview-demo" style={{height: "100%"}}>
                 <Suspense fallback={<Spinner />}>
-                    {data ? <DocumentPreview data={data} mdTemplate={template} /> : <Interview json={interview} onComplete={onComplete} />}
+                    {!!interview && <Fragment>
+                        {data ? <DocumentPreview data={data} mdTemplate={template} asPDF={true} /> : <Interview json={interview} onComplete={onComplete} />}
+                    </Fragment>}
                 </Suspense>
             </div>
             </CardBody>

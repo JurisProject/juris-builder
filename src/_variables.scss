@@ -5,3 +5,21 @@ https://github.com/KonstantinSolutions/juris-branding/tree/master/SCSS
 
 @import '../node_modules/juris-branding/SCSS/colors.scss';
 @import '../node_modules/juris-branding/SCSS/fonts.scss';
+
+$navbar-dark-color: $primary;
+
+$spacer: 1rem;
+$global-padding: $spacer;
+$black: #222222;
+
+
+$navbar-brand-height: $spacer * 2.5;
+$navbar-brand-padding-y: 0;
+.navbar-brand img {
+    height: $navbar-brand-height;
+}
+
+.dark-bg {
+    background-color: $primary;
+    color: $white;
+}
