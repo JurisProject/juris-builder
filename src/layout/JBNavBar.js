@@ -3,12 +3,12 @@ import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } f
 import { Link, Router } from 'components/Router'
 import JurisLogo from '../../node_modules/juris-branding/images/Juris-Word-Logo-White.png';
 
-const JBNavBar = () => {
+const JBNavBar = ({hide}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
 
-    return (
+    return hide ? null : (
         <Navbar expand="md" dark color="dark">
         <NavbarBrand tag={Link} to="/">
             <img src={JurisLogo} alt="Juris, PBC"/>

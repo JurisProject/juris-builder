@@ -42,10 +42,10 @@ const InterviewDemo = () => {
         <Card style={{height: "100%"}}>
             <CardHeader>Sample Interview</CardHeader>
             <CardBody style={{overflow: "auto"}}>
-            <div className="interview-demo">
+            <div className="interview-demo" style={{height: "100%"}}>
                 <Suspense fallback={<Spinner />}>
                     {!!interview && <Fragment>
-                        {data ? <DocumentPreview data={data} mdTemplate={template} /> : <Interview json={interview} onComplete={onComplete} />}
+                        {data ? <DocumentPreview data={data} mdTemplate={template} asPDF={true} /> : <Interview json={interview} onComplete={onComplete} />}
                     </Fragment>}
                 </Suspense>
             </div>

@@ -3,8 +3,8 @@ import { Container, Row, Col } from 'reactstrap';
 
 import "./JBFooter.scss";
 
-const JBFooter = () => {
-    return (
+const JBFooter = ({hide}) => {
+    return hide ? null : (
         <footer id="jb-footer">
             <Container>
                 <Row>

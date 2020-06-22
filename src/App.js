@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import qs from 'query-string';
 import { Root, Routes, addPrefetchExcludes } from 'react-static'
 //
 import { Router } from 'components/Router'
@@ -15,9 +16,13 @@ addPrefetchExcludes(['dynamic'])
 
 function App() {
 
+  // Check Query for Anything
+  const queryParams = qs.parse(window.location.search);
+  console.log({queryParams});
+
   return (
     <Root className="d-flex">
-      <JBNavBar />
+      <JBNavBar hide={queryParams.hideUI} />
       <div className="content flex-fill">
         <React.Suspense fallback={<em>Loading...</em>}>
           <Router>
@@ -26,7 +31,7 @@ function App() {
           </Router>
         </React.Suspense>
       </div>
-      <JBFooter />
+      <JBFooter hide={queryParams.hideUI}  />
     </Root>
   )
 }
