@@ -3,9 +3,6 @@ import { useRouteData } from 'react-static';
 import ReactMarkdown from 'react-markdown';
 import { Card, CardBody, Container, Spinner } from 'reactstrap';
 
-
-const InterviewContainer = lazy(() => import('../components/JBBuilder/JBInterview'));;
-
 const Interview = () => {
     const {interview} = useRouteData();
 
@@ -18,13 +15,6 @@ const Interview = () => {
 
     return (
         <Container>
-            <Card className="mb-4">
-                <CardBody>
-                    <Suspense fallback={<Spinner />}>
-                        <InterviewContainer json={json} />
-                    </Suspense>
-                </CardBody>
-            </Card>
             <ReactMarkdown source={page} />
         </Container>
     )
