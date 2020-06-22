@@ -39,7 +39,6 @@ const Document = ({data, mdTemplate, asPDF}) => {
     const getPDF = async (md) => {
       const htmlPDF = await ReactMarkdown({source: md});
       const pdfDoc = await htmlToPDF(htmlPDF);
-      console.log({pdfDoc});
       return pdfDoc;
     }
 
@@ -57,8 +56,6 @@ export default Document;
    * @param {*} html
    */
   const htmlToPDF = async html => {
-
-    console.log({html});
 
     const getTextFromChildren = (children, depth = 0) => {
       if (!children || !children.map || typeof children === 'string') return children;
@@ -99,8 +96,6 @@ export default Document;
 
         return c;
       });
-
-      console.log({content});
 
       return content;
     }

@@ -41,7 +41,6 @@ const Home = (props) => {
     },[]);
 
     function setupSurveyModel(interviewJson) {
-        console.log({interviewJson});
         setJson(interviewJson);
     }
 

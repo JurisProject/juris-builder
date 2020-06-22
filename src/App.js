@@ -18,7 +18,6 @@ function App() {
 
   // Check Query for Anything
   const queryParams = qs.parse(window.location.search);
-  console.log({queryParams});
 
   return (
     <Root className="d-flex">
