@@ -10,6 +10,8 @@ import './app.css'
 
 import './app.scss'
 import JBFooter from './layout/JBFooter'
+import Run from './containers/Run';
+import Debug from './containers/Debug';
 
 // Any routes that start with 'dynamic' will be treated as non-static routes
 addPrefetchExcludes(['dynamic'])
@@ -17,7 +19,8 @@ addPrefetchExcludes(['dynamic'])
 function App() {
 
   // Check Query for Anything
-  const queryParams = qs.parse(window.location.search);
+  let queryParams = {};
+  if (typeof window !== 'undefined') queryParams = qs.parse(window.location.search);
 
   return (
     <Root className="d-flex">
@@ -26,6 +29,8 @@ function App() {
         <React.Suspense fallback={<em>Loading...</em>}>
           <Router>
             <Dynamic path="dynamic" />
+            <Run path="run" />
+            <Debug path="debug" />
             <Routes path="*" />
           </Router>
         </React.Suspense>
