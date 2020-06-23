@@ -35,8 +35,10 @@
     "react-static-plugin-typescript": "^7.4.0",
     "react-survey": "^1.7.0",
     "reactstrap": "^8.4.1",
+    "survey-creator": "^1.7.12",
     "survey-library": "https://github.com/surveyjs/survey-library.git",
-    "survey-react": "^1.7.12"
+    "survey-react": "^1.7.12",
+    "surveyjs-widgets": "^1.7.12"
   },
   "devDependencies": {
     "@types/react": "^16.9.38",

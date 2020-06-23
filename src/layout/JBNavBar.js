@@ -23,6 +23,9 @@ const JBNavBar = ({hide}) => {
               <NavLink tag={Link} to="/interviews">Interviews</NavLink>
             </NavItem>
             <NavItem>
+              <NavLink tag={Link} to="/creator">Creator</NavLink>
+            </NavItem>
+            <NavItem>
                 <NavLink href="https://github.com/JurisProject/juris-builder" target="_blank">GitHub</NavLink>
             </NavItem>
           </Nav>

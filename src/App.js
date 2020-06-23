@@ -12,6 +12,7 @@ import './app.scss'
 import JBFooter from './layout/JBFooter'
 import Run from './containers/Run';
 import Debug from './containers/Debug';
+import Creator from './containers/Creator';
 
 // Any routes that start with 'dynamic' will be treated as non-static routes
 addPrefetchExcludes(['dynamic'])
@@ -31,6 +32,7 @@ function App() {
             <Dynamic path="dynamic" />
             <Run path="run" />
             <Debug path="debug" />
+            <Creator path="creator" />
             <Routes path="*" />
           </Router>
         </React.Suspense>
