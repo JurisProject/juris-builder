@@ -47,12 +47,19 @@ const Run = (props) => {
 
     function onInterviewUpdate(data) {
         setFormData(data.data);
+        // console.log({data});
+
+        window.parent.postMessage(JSON.stringify(data.data), "*" );
+    }
+
+    function onInterviewComplete(completeData) {
+        // console.log({completeData});
     }
 
     return (
         <Container style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
             <Suspense fallback={<Loader />}>
-                {json ? <Interview json={json} onUpdate={onInterviewUpdate} /> : <Loader />}
+                {json ? <Interview json={json} onUpdate={onInterviewUpdate} onComplete={onInterviewComplete} /> : <Loader />}
             </Suspense>
         </Container>
     )
