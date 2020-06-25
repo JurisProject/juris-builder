@@ -4,7 +4,7 @@
   "author": "Juris, PBC",
   "description": "A client-side document assembly solution",
   "license": "MIT",
-  "main": "./src/components/Builder/index.js",
+  "main": "./src/components/JBBuilder/index.js",
   "private": false,
   "scripts": {
     "start": "react-static start",

@@ -16,10 +16,10 @@ export default () => {
     return (
         <Fragment>
         <Row className="home-demo-hero">
-            <Col className="d-flex align-items-center" md={12} lg={6}>
+            <Col className="d-flex align-items-center" md={12} lg={6} style={{maxHeight: "100%"}}>
                 <h1 className="text-center">Simply the Easiest Document Builder. Ever.</h1>
             </Col>
-            <Col className="p-4" md={12} lg={6}>
+            <Col className="p-4" md={12} lg={6} style={{maxHeight: "100%"}}>
                 <InterviewDemo />
             </Col>
         </Row>

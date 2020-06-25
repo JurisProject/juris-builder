@@ -47,13 +47,13 @@ const Run = (props) => {
 
     function onInterviewUpdate(data) {
         setFormData(data.data);
-        console.log({data});
+        // console.log({data});
 
         window.parent.postMessage(JSON.stringify(data.data), "*" );
     }
 
     function onInterviewComplete(completeData) {
-        console.log({completeData});
+        // console.log({completeData});
     }
 
     return (

@@ -7,11 +7,19 @@ import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
 import 'survey-react/modern.css';
 
-const Interview = ({json, output, className, onUpdate, onComplete, autoSave}) => {
+const Interview = ({
+    json,
+    output,
+    className,
+    onUpdate,
+    onComplete,
+    autoSave,
+    onPartialSend
+}) => {
     const [model, setModel] = useState(false);
     const [initialData, setInitialData] = useState({});
     const [initialPage, setInitialPage] = useState(0);
-    let storageName = 'JurisInterviewData'
+    let storageName = 'JurisInterviewData';
 
     Survey.StylesManager.applyTheme("modern");
 
@@ -47,8 +55,9 @@ const Interview = ({json, output, className, onUpdate, onComplete, autoSave}) =>
     const _onUpdate = e => onUpdate ? onUpdate(e) : false;
 
     const _onPartialSend = survey => {
-        console.log("Partial Send", {survey});
         if (autoSave || typeof autoSave === 'undefined') saveSurveyData(survey);
+
+        if (onPartialSend) onPartialSend(survey);
     }
 
     return (<div className={classNames('interview-container', className)}>
