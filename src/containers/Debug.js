@@ -24,16 +24,16 @@ const Debug = (props) => {
 
     useEffect(() => {
         async function getInterview() {
-            if (queryParams.interviewFile) {
-                const interviewFile = await Axios.get(queryParams.interviewFile);
+            if (queryParams.i) {
+                const interviewFile = await Axios.get(queryParams.i);
                 setupSurveyModel(interviewFile.data);
                 setInterviewFile(queryParams.interviewFile);
             } else {
                 setupSurveyModel(testInterview);
             }
 
-            if (queryParams.mdTemplate) {
-                const templateFile = await Axios.get(queryParams.mdTemplate);
+            if (queryParams.o) {
+                const templateFile = await Axios.get(queryParams.o);
                 setTemplate(templateFile.data);
             }
         }
