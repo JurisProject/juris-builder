@@ -34,7 +34,7 @@ const Document = ({data, mdTemplate, asPDF}) => {
         }
         getPreview();
 
-    }, data);
+    }, [data]);
 
     const getPDF = async (md) => {
       const htmlPDF = await ReactMarkdown({source: md});

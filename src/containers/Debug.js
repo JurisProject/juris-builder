@@ -74,7 +74,7 @@ const Debug = (props) => {
                                 <Interview json={json} onUpdate={onInterviewUpdate} />
                             </CardBody>
                         </Card>
-                        {!!template && <Card>
+                        {!!template && <Card className="mb-4">
                             <CardBody>
                                 <DocumentPreview data={formData} mdTemplate={template} />
                             </CardBody>
