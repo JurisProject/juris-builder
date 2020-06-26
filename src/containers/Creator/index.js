@@ -7,6 +7,9 @@ import General from './General';
 import Template from './Template';
 import Axios from 'axios';
 import Preview from './Preview';
+import Share from './Share';
+
+// import './Creator.scss';
 
 const CreatorIndex = (props) => {
     console.log({props});
@@ -44,19 +47,22 @@ const CreatorIndex = (props) => {
 
     return (
         <Fragment>
-            <Navbar>
+            <Navbar className="creator-nav">
                 <Nav>
-                    <NavItem>
+                    <NavItem active={props['*'] === ''}>
                         <NavLink tag={Link} to="">General</NavLink>
                     </NavItem>
-                    <NavItem>
+                    <NavItem active={props['*'] === 'creator'}>
                         <NavLink tag={Link} to="creator">Creator</NavLink>
                     </NavItem>
-                    <NavItem>
+                    <NavItem active={props['*'] === 'template'}>
                         <NavLink tag={Link} to="template">Template</NavLink>
                     </NavItem>
-                    <NavItem>
+                    <NavItem active={props['*'] === 'preview'}>
                         <NavLink tag={Link} to="preview">Preview</NavLink>
+                    </NavItem>
+                    <NavItem active={props['*'] === 'share'}>
+                        <NavLink tag={Link} to="share">Share</NavLink>
                     </NavItem>
                 </Nav>
             </Navbar>
@@ -66,6 +72,7 @@ const CreatorIndex = (props) => {
                     <Creator interviewJson={interviewJson} path="creator" />
                     <Template template={template} path="template" />
                     <Preview mdTemplate={template} interviewJson={interviewJson} path="preview" />
+                    <Share templateUrl={templateUrl} interviewUrl={interviewUrl} path="share" />
                 </Router>
             </div>
         </Fragment>

@@ -17,3 +17,11 @@
         flex-direction: column;
     }
 }
+
+.creator-nav {
+    .nav-item {
+        &.active {
+            background: $black;
+        }
+    }
+}

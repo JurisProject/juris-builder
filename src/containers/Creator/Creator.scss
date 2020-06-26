@@ -1,0 +1,9 @@
+@import '../../variables';
+
+.creator-nav {
+    .nav-item {
+        &.active {
+            background: $black;
+        }
+    }
+}
