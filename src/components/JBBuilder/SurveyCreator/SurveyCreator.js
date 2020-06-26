@@ -118,15 +118,15 @@ class SurveyCreator extends Component {
     this.surveyCreator = customizeToolbar(this.surveyCreator);
 
     this.surveyCreator.saveSurveyFunc = this.saveMySurvey;
-    this.surveyCreator.tabs().push({
-      name: "survey-templates",
-      title: "My Custom Tab",
-      template: "custom-tab-survey-templates",
-      action: () => {
-          this.surveyCreator.makeNewViewActive("survey-templates");
-      },
-      data: {},
-    });
+    // this.surveyCreator.tabs().push({
+    //   name: "survey-templates",
+    //   title: "My Custom Tab",
+    //   template: "custom-tab-survey-templates",
+    //   action: () => {
+    //       this.surveyCreator.makeNewViewActive("survey-templates");
+    //   },
+    //   data: {},
+    // });
 
     this.surveyCreator.render("surveyCreatorContainer");
 

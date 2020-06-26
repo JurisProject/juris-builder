@@ -74,7 +74,7 @@ const CreatorIndex = (props) => {
                 <Router className="d-flex flex-fill">
                     <General {...props} templateUrl={templateUrl} interviewUrl={interviewUrl} path="/" />
                     <Creator interviewJson={interviewJson} setInterviewJson={setInterviewJson} path="creator" />
-                    <Template template={template} path="template" />
+                    <Template template={template} setTemplate={setTemplate} path="template" />
                     <Preview mdTemplate={template} interviewJson={interviewJson} path="preview" />
                     <Deploy mdTemplate={template} interviewJson={interviewJson} path="deploy" />
                     <Share templateUrl={templateUrl} interviewUrl={interviewUrl} path="share" />
