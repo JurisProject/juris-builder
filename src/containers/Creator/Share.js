@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Card, CardHeader, CardBody, Container } from 'reactstrap';
+import { Card, CardHeader, CardBody, Container, Alert } from 'reactstrap';
 
 const Share = ({interviewUrl, templateUrl}) => {
     const root = "https://builder.getjuris.com/";
@@ -10,7 +10,7 @@ const Share = ({interviewUrl, templateUrl}) => {
     function buildUrl() {
         const url = [
             root,
-            "?",
+            "run?",
             `i=${interviewUrl}&`,
             `o=${templateUrl}&`,
             `hideUI=1`
@@ -22,6 +22,7 @@ const Share = ({interviewUrl, templateUrl}) => {
             '" />'
         ];
 
+        setUrl(url);
         setCode(code);
     }
 
@@ -31,12 +32,21 @@ const Share = ({interviewUrl, templateUrl}) => {
 
     return (
         <Container className="pt-4 pb-4">
+            <Card className="mb-4">
+                <CardHeader>With Link</CardHeader>
+                <CardBody>
+                    <Alert color="secondary">
+                    <code>{url}</code>
+                    </Alert>
+                </CardBody>
+            </Card>
             <Card>
                 <CardHeader>With iFrame</CardHeader>
                 <CardBody>
-                    <h4>Options</h4>
                     <h4>The Code</h4>
+                    <Alert color="secondary">
                     <code>{code}</code>
+                    </Alert>
                 </CardBody>
             </Card>
         </Container>
