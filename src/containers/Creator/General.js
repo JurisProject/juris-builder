@@ -10,11 +10,11 @@ const General = ({queryParams, templateUrl, interviewUrl}) => {
                     <Form>
                         <FormGroup>
                             <Label>Interview File URL</Label>
-                            <Input name="i" defaultValue={queryParams.i || interviewUrl} />
+                            <Input name="i" defaultValue={queryParams.i || interviewUrl || ''} />
                         </FormGroup>
                         <FormGroup>
                             <Label>Template File URL</Label>
-                            <Input name="o" defaultValue={queryParams.o || templateUrl} />
+                            <Input name="o" defaultValue={queryParams.o || templateUrl || ''} />
                         </FormGroup>
                         <Button>Set Files</Button>
                     </Form>

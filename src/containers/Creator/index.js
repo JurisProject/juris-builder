@@ -8,6 +8,7 @@ import Template from './Template';
 import Axios from 'axios';
 import Preview from './Preview';
 import Share from './Share';
+import Deploy from './Deploy';
 
 // import './Creator.scss';
 
@@ -61,6 +62,9 @@ const CreatorIndex = (props) => {
                     <NavItem active={props['*'] === 'preview'}>
                         <NavLink tag={Link} to="preview">Preview</NavLink>
                     </NavItem>
+                    <NavItem active={props['*'] === 'deploy'}>
+                        <NavLink tag={Link} to="deploy">Deploy</NavLink>
+                    </NavItem>
                     <NavItem active={props['*'] === 'share'}>
                         <NavLink tag={Link} to="share">Share</NavLink>
                     </NavItem>
@@ -69,9 +73,10 @@ const CreatorIndex = (props) => {
             <div className="flex-fill d-flex">
                 <Router className="d-flex flex-fill">
                     <General {...props} templateUrl={templateUrl} interviewUrl={interviewUrl} path="/" />
-                    <Creator interviewJson={interviewJson} path="creator" />
+                    <Creator interviewJson={interviewJson} setInterviewJson={setInterviewJson} path="creator" />
                     <Template template={template} path="template" />
                     <Preview mdTemplate={template} interviewJson={interviewJson} path="preview" />
+                    <Deploy mdTemplate={template} interviewJson={interviewJson} path="deploy" />
                     <Share templateUrl={templateUrl} interviewUrl={interviewUrl} path="share" />
                 </Router>
             </div>

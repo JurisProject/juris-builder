@@ -135,6 +135,8 @@ class SurveyCreator extends Component {
 
   saveMySurvey = () => {
     console.log(JSON.parse(this.surveyCreator.text));
+
+    if (this.props.onSave) this.props.onSave(this.surveyCreator.text);
   };
 
   render() {
