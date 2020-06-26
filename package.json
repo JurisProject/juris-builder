@@ -4,12 +4,13 @@
   "author": "Juris, PBC",
   "description": "A client-side document assembly solution",
   "license": "MIT",
-  "main": "./src/components/JBBuilder/index.js",
+  "main": "./src/lib/index.js",
   "private": false,
   "scripts": {
     "start": "react-static start",
     "stage": "react-static build --staging",
-    "build": "react-static build",
+    "build:site": "react-static build",
+    "build": "node_modules/.bin/babel src/components/JBBuilder --out-dir lib",
     "analyze": "react-static build --analyze",
     "serve": "serve dist -p 3000"
   },
@@ -41,6 +42,7 @@
     "surveyjs-widgets": "^1.7.12"
   },
   "devDependencies": {
+    "@babel/cli": "^7.10.3",
     "@types/react": "^16.9.38",
     "babel-eslint": "^10.0.2",
     "dotenv": "^8.2.0",
