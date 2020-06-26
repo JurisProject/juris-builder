@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Form, FormGroup, Input, Label, Button, Card, CardBody } from 'reactstrap';
 
-const General = ({queryParams}) => {
+const General = ({queryParams, templateUrl, interviewUrl}) => {
     return (
         <Container className="pt-4 pb-4">
             <h1>Interview Debugger</h1>
@@ -10,11 +10,11 @@ const General = ({queryParams}) => {
                     <Form>
                         <FormGroup>
                             <Label>Interview File URL</Label>
-                            <Input name="i" defaultValue={queryParams.i} />
+                            <Input name="i" defaultValue={queryParams.i || interviewUrl} />
                         </FormGroup>
                         <FormGroup>
                             <Label>Template File URL</Label>
-                            <Input name="o" defaultValue={queryParams.o} />
+                            <Input name="o" defaultValue={queryParams.o || templateUrl} />
                         </FormGroup>
                         <Button>Set Files</Button>
                     </Form>

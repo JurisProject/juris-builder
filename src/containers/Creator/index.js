@@ -68,7 +68,7 @@ const CreatorIndex = (props) => {
             </Navbar>
             <div className="flex-fill d-flex">
                 <Router className="d-flex flex-fill">
-                    <General {...props} path="/" />
+                    <General {...props} templateUrl={templateUrl} interviewUrl={interviewUrl} path="/" />
                     <Creator interviewJson={interviewJson} path="creator" />
                     <Template template={template} path="template" />
                     <Preview mdTemplate={template} interviewJson={interviewJson} path="preview" />

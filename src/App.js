@@ -13,7 +13,6 @@ import JBFooter from './layout/JBFooter'
 import Run from './containers/Run';
 import Debug from './containers/Debug';
 import CreatorIndex from './containers/Creator';
-import Creator from './containers/Creator/Creator';
 
 // Any routes that start with 'dynamic' will be treated as non-static routes
 addPrefetchExcludes(['dynamic'])
