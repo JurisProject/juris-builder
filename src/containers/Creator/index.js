@@ -6,6 +6,7 @@ import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
 import General from './General';
 import Template from './Template';
 import Axios from 'axios';
+import Preview from './Preview';
 
 const CreatorIndex = (props) => {
     console.log({props});
@@ -27,27 +28,18 @@ const CreatorIndex = (props) => {
                 const interviewFile = await Axios.get(queryParams.i);
                 setInterviewJson(interviewFile.data);
                 console.log("interview file data = ", interviewFile.data);
-                setInterviewFile(queryParams.i);
+                setInterviewUrl(queryParams.i);
             }
 
             if (queryParams.o) {
                 const templateFile = await Axios.get(queryParams.o);
                 setTemplate(templateFile.data);
-                setTemplateFile(queryParams.o);
+                setTemplateUrl(queryParams.o);
             }
         }
         getTemplateData();
 
     }, []);
-
-    const renderView = () => {
-        switch(view) {
-            case 'creator': return <Creator {...props} interviewJson={interviewJson} />
-            case 'template': return <div>Template</div>
-            case 'preview': return <div>Preview</div>
-            default: return <General {...props}/>
-        }
-    }
 
 
     return (
@@ -55,21 +47,26 @@ const CreatorIndex = (props) => {
             <Navbar>
                 <Nav>
                     <NavItem>
-                        <NavLink tag="a" href="#" onClick={() => setView('general')} active={view === 'general'}>General</NavLink>
+                        <NavLink tag={Link} to="">General</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink tag="a" href="#creator" onClick={() => setView('creator')} active={view === 'creator'}>Creator</NavLink>
+                        <NavLink tag={Link} to="creator">Creator</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink tag="a" href="#template" onClick={() => setView('template')} active={view === 'template'}>Template</NavLink>
+                        <NavLink tag={Link} to="template">Template</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink tag="a" href="#preview" onClick={() => setView('preview')} active={view === 'preview'}>Preview</NavLink>
+                        <NavLink tag={Link} to="preview">Preview</NavLink>
                     </NavItem>
                 </Nav>
             </Navbar>
             <div className="flex-fill">
-                {renderView()}
+                <Router>
+                    <General {...props} path="/" />
+                    <Creator interviewJson={interviewJson} path="creator" />
+                    <Template template={template} path="template" />
+                    <Preview path="preview" />
+                </Router>
             </div>
         </Fragment>
     )

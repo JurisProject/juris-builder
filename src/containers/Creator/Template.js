@@ -3,7 +3,7 @@ import { Container } from 'reactstrap';
 
 import DocumentPreview from '../../components/JBBuilder/JBDocumentPreview';
 
-const Template = ({queryParams, template}) => {
+const Template = ({template}) => {
     return (
         <Container>
             <DocumentPreview mdTemplate={template} />
