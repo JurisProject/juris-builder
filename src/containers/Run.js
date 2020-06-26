@@ -51,7 +51,7 @@ const Run = (props) => {
         setFormData(data.data);
         // console.log({data});
 
-        window.parent.postMessage(JSON.stringify(data.data), "*" );
+        // window.parent.postMessage(JSON.stringify(data.data), "*" );
     }
 
     function onInterviewComplete(survey) {
@@ -61,11 +61,34 @@ const Run = (props) => {
         if (template) setInterviewData(survey.data);
     }
 
+    function _sendPDF(data) {
+        try{
+
+        if (queryParams.sendPDF) {
+            if (queryParams.sendPDFFunc) {
+                window.parent.postMessage({
+                    func: queryParams.sendPDFFunc,
+                    data
+                }, '*');
+            } else {
+                window.parent.postMessage({
+                    func: 'JurisGetPDF',
+                    data
+                },'*');
+            }
+
+        }
+
+    } catch(e) {
+        console.log(e);
+    }
+    }
+
     return (
         <Container style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
             <Suspense fallback={<Loader />}>
                 {interviewData ?
-                    <DocumentPreview data={interviewData} mdTemplate={template} asPDF={true} iFrameAttr={{style: {minHeight: "100%", flex: "1"}}} /> :
+                    <DocumentPreview data={interviewData} mdTemplate={template} asPDF={true} sendPDF={_sendPDF} iFrameAttr={{style: {minHeight: "100%", flex: "1"}}} /> :
                     <Fragment>
                         {json ? <Interview json={json} onUpdate={onInterviewUpdate} onComplete={onInterviewComplete} /> : <Loader />}
                     </Fragment>

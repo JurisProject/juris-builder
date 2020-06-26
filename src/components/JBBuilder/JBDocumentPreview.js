@@ -11,7 +11,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import './scss/JBDocumentPreview.scss';
 
-const Document = ({data, mdTemplate, asPDF, iFrameAttr}) => {
+const Document = ({data, mdTemplate, asPDF, iFrameAttr, sendPDF}) => {
     const [loading, setLoading] = useState(true);
     const [template, setTemplate] = useState(false);
     const [source, setSource] = useState(false);
@@ -26,7 +26,13 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr}) => {
           if (asPDF) {
             const html = await mdTemp(data);
             const pdfUrl = await getPDF(html);
+
             setIframeSrc(pdfUrl);
+
+            if (sendPDF) {
+              const base = await getPDF(html, 'base64');
+              sendPDF(base);
+            }
           } else {
             setSource(mdTemp(data));
           }
@@ -36,9 +42,9 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr}) => {
 
     }, [data]);
 
-    const getPDF = async (md) => {
+    const getPDF = async (md, output) => {
       const htmlPDF = await ReactMarkdown({source: md});
-      const pdfDoc = await htmlToPDF(htmlPDF);
+      const pdfDoc = await htmlToPDF(htmlPDF, output);
       return pdfDoc;
     }
 
@@ -55,7 +61,7 @@ export default Document;
    * Converts React HTML Components to PDF
    * @param {*} html
    */
-  const htmlToPDF = async html => {
+  const htmlToPDF = async (html, output = 'blob') => {
 
     const getTextFromChildren = (children, depth = 0) => {
       if (!children || !children.map || typeof children === 'string') return children;
@@ -112,11 +118,26 @@ export default Document;
         };
 
         const pdfDocGenerator = pdfMake.createPdf({content, styles});
-        pdfDocGenerator.getBlob((data) => {
-        // pdfDocGenerator.getBase64((data) => {
-        // pdfDocGenerator.getDataUrl((data) => {
-          resolve(URL.createObjectURL(data));
-        });
+
+        switch(output) {
+          case 'base64':
+            pdfDocGenerator.getBase64((data) => {
+              resolve(data);
+            });
+            break;
+          case 'objecturl':
+            pdfDocGenerator.getDataUrl((data) => {
+              resolve(URL.createObjectURL(data));
+            });
+            break;
+          case 'blob':
+          default:
+            pdfDocGenerator.getBlob((data) => {
+            // pdfDocGenerator.getBase64((data) => {
+            // pdfDocGenerator.getDataUrl((data) => {
+              resolve(URL.createObjectURL(data));
+            });
+        }
       });
 
     };
