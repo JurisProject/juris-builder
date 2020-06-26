@@ -4,14 +4,14 @@
   "author": "Juris, PBC",
   "description": "A client-side document assembly solution",
   "license": "MIT",
-  "main": "./src/lib/index.js",
+  "main": "./lib/index.js",
   "private": false,
   "scripts": {
     "start": "react-static start",
-    "stage": "react-static build --staging",
+    "stage": "react-static build:site --staging",
     "build:site": "react-static build",
     "build": "node_modules/.bin/babel src/components/JBBuilder --out-dir lib",
-    "analyze": "react-static build --analyze",
+    "analyze": "react-static build:site --analyze",
     "serve": "serve dist -p 3000"
   },
   "dependencies": {

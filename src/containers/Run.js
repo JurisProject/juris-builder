@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Suspense, lazy} from 'react';
+import React, {useState, useEffect, Suspense, lazy, Fragment} from 'react';
 import qs from 'query-string';
 import {Spinner, Container} from 'reactstrap';
 
@@ -18,6 +18,8 @@ const Run = (props) => {
     const [json, setJson] = useState(false);
     const [formData, setFormData] = useState({});
     const [template, setTemplate] = useState(false);
+
+    const [interviewData, setInterviewData] = useState(false);
 
     // Check Query for Anything
     let queryParams = {};
@@ -52,14 +54,22 @@ const Run = (props) => {
         window.parent.postMessage(JSON.stringify(data.data), "*" );
     }
 
-    function onInterviewComplete(completeData) {
+    function onInterviewComplete(survey) {
         // console.log({completeData});
+
+        // Show the PDF for Download
+        if (template) setInterviewData(survey.data);
     }
 
     return (
         <Container style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
             <Suspense fallback={<Loader />}>
-                {json ? <Interview json={json} onUpdate={onInterviewUpdate} onComplete={onInterviewComplete} /> : <Loader />}
+                {interviewData ?
+                    <DocumentPreview data={interviewData} mdTemplate={template} asPDF={true} iFrameAttr={{style: {minHeight: "100%", flex: "1"}}} /> :
+                    <Fragment>
+                        {json ? <Interview json={json} onUpdate={onInterviewUpdate} onComplete={onInterviewComplete} /> : <Loader />}
+                    </Fragment>
+                }
             </Suspense>
         </Container>
     )

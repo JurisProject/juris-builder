@@ -11,7 +11,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import './scss/JBDocumentPreview.scss';
 
-const Document = ({data, mdTemplate, asPDF}) => {
+const Document = ({data, mdTemplate, asPDF, iFrameAttr}) => {
     const [loading, setLoading] = useState(true);
     const [template, setTemplate] = useState(false);
     const [source, setSource] = useState(false);
@@ -44,7 +44,7 @@ const Document = ({data, mdTemplate, asPDF}) => {
 
     return (
         loading ? <Spinner /> : <Fragment>
-          {asPDF ? <iframe src={iframeSrc} className="iframe-preview" /> : <ReactMarkdown source={source} />}
+          {asPDF ? <iframe src={iframeSrc} className="iframe-preview" {...iFrameAttr} /> : <ReactMarkdown source={source} />}
         </Fragment>
     )
 }
