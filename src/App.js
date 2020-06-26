@@ -25,7 +25,7 @@ function App() {
   if (typeof window !== 'undefined') queryParams = qs.parse(window.location.search);
 
   return (
-    <Root className="d-flex">
+    <Root className="d-flex" style={{minHeight: "100vh"}}>
       <JBNavBar hide={queryParams.hideUI} />
       <div className="content flex-fill">
         <React.Suspense fallback={<em>Loading...</em>}>

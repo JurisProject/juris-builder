@@ -3,6 +3,7 @@ import Loader from '../../components/Loader/Loader';
 import qs from 'query-string';
 import Axios from 'axios';
 import {useParams} from '@reach/router';
+import { Container } from 'reactstrap';
 
 const SurveyCreator = lazy(() => import('../../components/JBBuilder/SurveyCreator/SurveyCreator'));
 
@@ -13,9 +14,11 @@ const Creator = ({queryParams, interviewJson}) => {
     // if (typeof window !== 'undefined') queryParams = qs.parse(window.location.search);
 
     return(
-        <Suspense fallback={<Loader />}>
-            {interviewJson !== false && <SurveyCreator interviewJson={JSON.stringify(interviewJson)} />}
-        </Suspense>
+        <Container fluid>
+            <Suspense fallback={<Loader />}>
+                {interviewJson !== false && <SurveyCreator interviewJson={JSON.stringify(interviewJson)} />}
+            </Suspense>
+        </Container>
     )
 }
 

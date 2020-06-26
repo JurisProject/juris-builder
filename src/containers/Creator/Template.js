@@ -1,12 +1,16 @@
 import React from 'react';
-import { Container } from 'reactstrap';
+import { Container, Card, CardBody } from 'reactstrap';
 
 import DocumentPreview from '../../components/JBBuilder/JBDocumentPreview';
 
 const Template = ({template}) => {
     return (
-        <Container>
-            <DocumentPreview mdTemplate={template} />
+        <Container className="pt-2 pb-2">
+            <Card>
+                <CardBody>
+                    <DocumentPreview mdTemplate={template} />
+                </CardBody>
+            </Card>
         </Container>
     )
 }

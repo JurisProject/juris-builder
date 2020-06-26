@@ -60,12 +60,12 @@ const CreatorIndex = (props) => {
                     </NavItem>
                 </Nav>
             </Navbar>
-            <div className="flex-fill">
-                <Router>
+            <div className="flex-fill d-flex">
+                <Router className="d-flex flex-fill">
                     <General {...props} path="/" />
                     <Creator interviewJson={interviewJson} path="creator" />
                     <Template template={template} path="template" />
-                    <Preview path="preview" />
+                    <Preview mdTemplate={template} interviewJson={interviewJson} path="preview" />
                 </Router>
             </div>
         </Fragment>

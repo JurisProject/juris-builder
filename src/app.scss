@@ -1,1 +1,19 @@
 @import './bootstrap';
+
+#root {
+    &>div {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.content {
+    display: flex;
+
+    &>div[tabindex="-1"] {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+}
