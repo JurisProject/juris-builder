@@ -2,7 +2,7 @@ import React, {useEffect, useState, Fragment} from 'react';
 
 import ReactMarkdown from 'react-markdown';
 import Handlebars from 'handlebars';
-
+import { sha256 } from 'js-sha256';
 import {Spinner} from 'reactstrap';
 
 import pdfMake from "pdfmake/build/pdfmake";
@@ -90,11 +90,16 @@ export default Document;
       return new Promise((resolve, reject) => {
 
         const content = prepMD4PDF(md);
+        const contentHash = sha256(JSON.stringify(md));
+        const docHash = sha256(`${data.interviewFile + data.templateFile}`);
 
         const pdfDocGenerator = pdfMake.createPdf({
           content,
           styles,
-          header: {image: 'docHash', fit: [30,30], alignment: 'right'},
+          header: {columns: [
+            {image: 'contentHash', fit: [30,30], margin: 2},
+            {text: `Document Hash: ${docHash}`, margin: 5, fontSize: 8, alignment: 'right', width: 'auto'}
+          ]},
           footer: function(currentPage, pageCount) {
             return [
               {text: 'Page ' + currentPage.toString() + ' of ' + pageCount + '\n', style: 'footer'},
@@ -102,12 +107,12 @@ export default Document;
                 text: [
                   `Interview Url: ${data.interviewFile}\n`,
                   `Template Url: ${data.templateFile}`
-                ], 
+                ],
                 style: 'subfooter'
               }
             ] },
           images: {
-            docHash: `https://robohash.org/${data.interviewFile + data.templateFile}`
+            contentHash: `https://robohash.org/${contentHash}`
           }
         });
 
