@@ -98,7 +98,7 @@ export default Document;
           styles,
           header: {columns: [
             {image: 'contentHash', fit: [30,30], margin: 2},
-            {text: `Document Hash: ${docHash}`, margin: 5, fontSize: 8, alignment: 'right', width: 'auto'}
+            {text: `Template Hash: ${docHash}`, margin: 5, fontSize: 8, alignment: 'right', width: 'auto'}
           ]},
           footer: function(currentPage, pageCount) {
             return [
