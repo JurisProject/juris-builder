@@ -90,7 +90,7 @@ export default Document;
       return new Promise((resolve, reject) => {
 
         const content = prepMD4PDF(md);
-        const contentHash = sha256(JSON.stringify(md));
+        const contentHash = sha256(md);
         const docHash = sha256(`${data.interviewFile + data.templateFile}`);
 
         const pdfDocGenerator = pdfMake.createPdf({
