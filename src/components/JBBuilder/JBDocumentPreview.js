@@ -77,6 +77,10 @@ export default Document;
           alignment: 'center',
           fontSize: 10
         },
+        subfooter: {
+          alignment: 'center',
+          fontSize: 7
+        },
         header: {
           fontSize: 8,
           margin: 5
@@ -87,15 +91,24 @@ export default Document;
 
         const content = prepMD4PDF(md);
 
-        let header = [];
-        if (data.interviewFile) header.push(`Interview Url: ${data.interviewFile}\n`);
-        if (data.templateFile) header.push(`Template Url: ${data.templateFile}`);
-
         const pdfDocGenerator = pdfMake.createPdf({
           content,
           styles,
-          header: [{text: header, style: 'header'}],
-          footer: function(currentPage, pageCount) { return [{text: 'Page ' + currentPage.toString() + ' of ' + pageCount, style: 'footer'}] }
+          header: {image: 'docHash', fit: [30,30], alignment: 'right'},
+          footer: function(currentPage, pageCount) {
+            return [
+              {text: 'Page ' + currentPage.toString() + ' of ' + pageCount + '\n', style: 'footer'},
+              {
+                text: [
+                  `Interview Url: ${data.interviewFile}\n`,
+                  `Template Url: ${data.templateFile}`
+                ], 
+                style: 'subfooter'
+              }
+            ] },
+          images: {
+            docHash: `https://robohash.org/${data.interviewFile + data.templateFile}`
+          }
         });
 
         switch(output) {
