@@ -90,15 +90,15 @@ export default Document;
       return new Promise((resolve, reject) => {
 
         const content = prepMD4PDF(md);
-        const contentHash = sha256(md);
-        const docHash = sha256(`${data.interviewFile + data.templateFile}`);
+        const documentHash = sha256(md);
+        const templateHash = sha256(`${data.interviewFile + data.templateFile}`);
 
         const pdfDocGenerator = pdfMake.createPdf({
           content,
           styles,
           header: {columns: [
             {image: 'contentHash', fit: [30,30], margin: 2},
-            {text: `Template Hash: ${docHash}`, margin: 5, fontSize: 8, alignment: 'right', width: 'auto'}
+            {text: `Template Hash: ${templateHash}\nDocument Hash: ${documentHash}`, margin: 5, fontSize: 8, alignment: 'right', width: 'auto'}
           ]},
           footer: function(currentPage, pageCount) {
             return [
@@ -112,7 +112,7 @@ export default Document;
               }
             ] },
           images: {
-            contentHash: `https://robohash.org/${contentHash}`
+            contentHash: `https://robohash.org/${documentHash}`
           }
         });
 
