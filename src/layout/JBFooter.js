@@ -5,7 +5,7 @@ import "./JBFooter.scss";
 
 const JBFooter = ({hide}) => {
     return hide ? null : (
-        <footer id="jb-footer">
+        <footer id="jb-footer" className={hide ? 'hide' : 'show'}>
             <Container>
                 <Row>
                     <Col>

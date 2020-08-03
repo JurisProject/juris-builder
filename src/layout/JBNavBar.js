@@ -9,7 +9,7 @@ const JBNavBar = ({hide}) => {
     const toggle = () => setIsOpen(!isOpen);
 
     return hide ? null : (
-        <Navbar expand="md" dark color="dark">
+        <Navbar id="jb-header" expand="md" dark color="dark" className={hide ? 'hide' : 'show'}>
         <NavbarBrand tag={Link} to="/">
             <img src={JurisLogo} alt="Juris, PBC"/>
         </NavbarBrand>
@@ -17,13 +17,10 @@ const JBNavBar = ({hide}) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink tag={Link} to="/">Builder</NavLink>
-            </NavItem>
-            <NavItem>
               <NavLink tag={Link} to="/interviews">Interviews</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/creator">Creator</NavLink>
+              <NavLink tag={Link} to="/builder">Builder</NavLink>
             </NavItem>
             <NavItem>
                 <NavLink href="https://github.com/JurisProject/juris-builder" target="_blank">GitHub</NavLink>

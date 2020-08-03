@@ -51,13 +51,13 @@ const CreatorIndex = (props) => {
             <Navbar className="creator-nav">
                 <Nav>
                     <NavItem active={props['*'] === ''}>
-                        <NavLink tag={Link} to="">General</NavLink>
+                        <NavLink tag={Link} to="">Load Existing</NavLink>
                     </NavItem>
-                    <NavItem active={props['*'] === 'creator'}>
-                        <NavLink tag={Link} to="creator">Creator</NavLink>
+                    <NavItem active={props['*'] === 'interview'}>
+                        <NavLink tag={Link} to="interview">Interview Builder</NavLink>
                     </NavItem>
-                    <NavItem active={props['*'] === 'template'}>
-                        <NavLink tag={Link} to="template">Template</NavLink>
+                    <NavItem active={props['*'] === 'document'}>
+                        <NavLink tag={Link} to="document">Document Template</NavLink>
                     </NavItem>
                     <NavItem active={props['*'] === 'preview'}>
                         <NavLink tag={Link} to="preview">Preview</NavLink>
@@ -73,9 +73,9 @@ const CreatorIndex = (props) => {
             <div className="flex-fill d-flex">
                 <Router className="d-flex flex-fill">
                     <General {...props} templateUrl={templateUrl} interviewUrl={interviewUrl} path="/" />
-                    <Creator interviewJson={interviewJson} setInterviewJson={setInterviewJson} path="creator" />
-                    <Template template={template} setTemplate={setTemplate} path="template" />
-                    <Preview mdTemplate={template} interviewJson={interviewJson} path="preview" />
+                    <Creator interviewJson={interviewJson} setInterviewJson={setInterviewJson} path="interview" />
+                    <Template template={template} setTemplate={setTemplate} path="document" />
+                    <Preview mdTemplate={template} {...{interviewJson, templateUrl, interviewUrl}}  path="preview" />
                     <Deploy mdTemplate={template} interviewJson={interviewJson} path="deploy" />
                     <Share templateUrl={templateUrl} interviewUrl={interviewUrl} path="share" />
                 </Router>
