@@ -1,4 +1,5 @@
 import React from 'react'
+import { Spinner } from 'reactstrap'
 
 export default () => {
   const [ready, setReady] = React.useState(false)
@@ -10,6 +11,6 @@ export default () => {
   return ( ready ?
     <div>
       <h1>404 - Oh no's! We couldn't find that page :(</h1>
-    </div> : null
+    </div> : <Spinner />
   )
 }
