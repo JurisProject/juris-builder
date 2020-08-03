@@ -51,7 +51,6 @@ const Run = (props) => {
 
     function onInterviewUpdate(data) {
         const newFormData = {...data.data, interviewFile, templateFile};
-        console.log({newFormData});
         setFormData(newFormData);
         // console.log({data});
 
