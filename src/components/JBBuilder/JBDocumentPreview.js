@@ -2,7 +2,7 @@ import React, {useEffect, useState, Fragment} from 'react';
 
 import ReactMarkdown from 'react-markdown';
 import Handlebars from 'handlebars';
-
+import { sha256 } from 'js-sha256';
 import {Spinner} from 'reactstrap';
 
 import pdfMake from "pdfmake/build/pdfmake";
@@ -25,12 +25,12 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr, sendPDF}) => {
 
           if (asPDF) {
             const html = await mdTemp(data);
-            const pdfUrl = await getPDF(html);
+            const pdfUrl = await getPDF(html, 'blob', data);
 
             setIframeSrc(pdfUrl);
 
             if (sendPDF) {
-              const base = await getPDF(html, 'base64');
+              const base = await getPDF(html, 'base64', data);
               sendPDF(base);
             }
           } else {
@@ -42,10 +42,10 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr, sendPDF}) => {
 
     }, [data]);
 
-    const getPDF = async (md, output) => {
+    const getPDF = async (md, output, data) => {
 
       // Convert MD to PDF
-      const pdfDoc = await MDtoPDF(md, output);
+      const pdfDoc = await MDtoPDF(md, output, data);
 
       return pdfDoc;
     }
@@ -59,7 +59,7 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr, sendPDF}) => {
 
 export default Document;
 
-    const MDtoPDF = async (md, output = 'blob') => {
+    const MDtoPDF = async (md, output = 'blob', data) => {
 
       const styles = {
         heading1: {
@@ -72,14 +72,49 @@ export default Document;
         },
         strong: {
           bold: true
+        },
+        footer: {
+          alignment: 'center',
+          fontSize: 10
+        },
+        subfooter: {
+          alignment: 'center',
+          fontSize: 7
+        },
+        header: {
+          fontSize: 8,
+          margin: 5
         }
       };
 
       return new Promise((resolve, reject) => {
 
         const content = prepMD4PDF(md);
+        const documentHash = sha256(md);
+        const templateHash = sha256(`${data.interviewFile + data.templateFile}`);
 
-        const pdfDocGenerator = pdfMake.createPdf({content, styles});
+        const pdfDocGenerator = pdfMake.createPdf({
+          content,
+          styles,
+          header: {columns: [
+            {image: 'contentHash', fit: [30,30], margin: 2},
+            {text: `Template Hash: ${templateHash}\nDocument Hash: ${documentHash}`, margin: 5, fontSize: 8, alignment: 'right', width: 'auto'}
+          ]},
+          footer: function(currentPage, pageCount) {
+            return [
+              {text: 'Page ' + currentPage.toString() + ' of ' + pageCount + '\n', style: 'footer'},
+              {
+                text: [
+                  `Interview Url: ${data.interviewFile}\n`,
+                  `Template Url: ${data.templateFile}`
+                ],
+                style: 'subfooter'
+              }
+            ] },
+          images: {
+            contentHash: `https://robohash.org/${documentHash}`
+          }
+        });
 
         switch(output) {
           case 'base64':
