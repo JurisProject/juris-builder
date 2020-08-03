@@ -32,7 +32,7 @@ function App() {
             <Dynamic path="dynamic" />
             <Run path="run" />
             <Debug path="debug" />
-            <CreatorIndex path="creator/*" queryParams={queryParams} />
+            <CreatorIndex path="builder/*" queryParams={queryParams} />
             <Routes path="*" />
           </Router>
         </React.Suspense>
