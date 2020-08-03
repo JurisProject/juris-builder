@@ -5,3 +5,12 @@
     color: $white;
     padding: $global-padding;
 }
+
+#jb-header,
+#jb-footer {
+    display: none;
+
+    &.show {
+        display: flex;
+    }
+}

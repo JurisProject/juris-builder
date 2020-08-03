@@ -75,7 +75,7 @@ const CreatorIndex = (props) => {
                     <General {...props} templateUrl={templateUrl} interviewUrl={interviewUrl} path="/" />
                     <Creator interviewJson={interviewJson} setInterviewJson={setInterviewJson} path="interview" />
                     <Template template={template} setTemplate={setTemplate} path="document" />
-                    <Preview mdTemplate={template} interviewJson={interviewJson} path="preview" />
+                    <Preview mdTemplate={template} {...{interviewJson, templateUrl, interviewUrl}}  path="preview" />
                     <Deploy mdTemplate={template} interviewJson={interviewJson} path="deploy" />
                     <Share templateUrl={templateUrl} interviewUrl={interviewUrl} path="share" />
                 </Router>

@@ -9,7 +9,7 @@ const JBNavBar = ({hide}) => {
     const toggle = () => setIsOpen(!isOpen);
 
     return hide ? null : (
-        <Navbar expand="md" dark color="dark" className={hide ? 'hide' : ''}>
+        <Navbar id="jb-header" expand="md" dark color="dark" className={hide ? 'hide' : 'show'}>
         <NavbarBrand tag={Link} to="/">
             <img src={JurisLogo} alt="Juris, PBC"/>
         </NavbarBrand>

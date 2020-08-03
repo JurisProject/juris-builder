@@ -18,6 +18,7 @@ const Run = (props) => {
     const [json, setJson] = useState(false);
     const [formData, setFormData] = useState({});
     const [template, setTemplate] = useState(false);
+    const [templateFile, setTemplateFile] = useState(false);
 
     const [interviewData, setInterviewData] = useState(false);
 
@@ -30,7 +31,7 @@ const Run = (props) => {
             if (queryParams.i) {
                 const interviewFile = await Axios.get(queryParams.i);
                 setupSurveyModel(interviewFile.data);
-                setInterviewFile(queryParams.interviewFile);
+                setInterviewFile(queryParams.i);
             } else {
                 setupSurveyModel(testInterview);
             }
@@ -38,6 +39,7 @@ const Run = (props) => {
             if (queryParams.o) {
                 const templateFile = await Axios.get(queryParams.o);
                 setTemplate(templateFile.data);
+                setTemplateFile(queryParams.o);
             }
         }
         getInterview();
@@ -48,7 +50,9 @@ const Run = (props) => {
     }
 
     function onInterviewUpdate(data) {
-        setFormData(data.data);
+        const newFormData = {...data.data, interviewFile, templateFile};
+        console.log({newFormData});
+        setFormData(newFormData);
         // console.log({data});
 
         // window.parent.postMessage(JSON.stringify(data.data), "*" );
@@ -58,7 +62,7 @@ const Run = (props) => {
         // console.log({completeData});
 
         // Show the PDF for Download
-        if (template) setInterviewData(survey.data);
+        if (template) setInterviewData({...survey.data, interviewFile, templateFile});
     }
 
     function _sendPDF(data) {
