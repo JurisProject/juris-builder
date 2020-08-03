@@ -8,7 +8,7 @@ const Preview = ({mdTemplate, interviewJson, interviewUrl, templateUrl}) => {
     const [data, setData] = useState({});
 
     function _onUpdate(survey) {
-        setData({...survey.data, interviewUrl, templateUrl});
+        setData({...survey.data, ...{interviewFile: interviewUrl, templateFile: templateUrl}});
     }
 
     return (
