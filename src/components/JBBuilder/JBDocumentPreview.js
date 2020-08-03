@@ -25,12 +25,12 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr, sendPDF}) => {
 
           if (asPDF) {
             const html = await mdTemp(data);
-            const pdfUrl = await getPDF(html);
+            const pdfUrl = await getPDF(html, 'blob', data);
 
             setIframeSrc(pdfUrl);
 
             if (sendPDF) {
-              const base = await getPDF(html, 'base64');
+              const base = await getPDF(html, 'base64', data);
               sendPDF(base);
             }
           } else {
@@ -42,10 +42,10 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr, sendPDF}) => {
 
     }, [data]);
 
-    const getPDF = async (md, output) => {
+    const getPDF = async (md, output, data) => {
 
       // Convert MD to PDF
-      const pdfDoc = await MDtoPDF(md, output);
+      const pdfDoc = await MDtoPDF(md, output, data);
 
       return pdfDoc;
     }
@@ -59,7 +59,7 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr, sendPDF}) => {
 
 export default Document;
 
-    const MDtoPDF = async (md, output = 'blob') => {
+    const MDtoPDF = async (md, output = 'blob', data) => {
 
       const styles = {
         heading1: {
@@ -72,6 +72,14 @@ export default Document;
         },
         strong: {
           bold: true
+        },
+        footer: {
+          alignment: 'center',
+          fontSize: 10
+        },
+        header: {
+          fontSize: 8,
+          margin: 5
         }
       };
 
@@ -79,7 +87,16 @@ export default Document;
 
         const content = prepMD4PDF(md);
 
-        const pdfDocGenerator = pdfMake.createPdf({content, styles});
+        let header = [];
+        if (data.interviewFile) header.push(`Interview Url: ${data.interviewFile}\n`);
+        if (data.templateFile) header.push(`Template Url: ${data.templateFile}`);
+
+        const pdfDocGenerator = pdfMake.createPdf({
+          content,
+          styles,
+          header: [{text: header, style: 'header'}],
+          footer: function(currentPage, pageCount) { return [{text: 'Page ' + currentPage.toString() + ' of ' + pageCount, style: 'footer'}] }
+        });
 
         switch(output) {
           case 'base64':
