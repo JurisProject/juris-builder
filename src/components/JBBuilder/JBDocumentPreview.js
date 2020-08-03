@@ -43,8 +43,10 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr, sendPDF}) => {
     }, [data]);
 
     const getPDF = async (md, output) => {
-      const htmlPDF = await ReactMarkdown({source: md});
-      const pdfDoc = await htmlToPDF(htmlPDF, output);
+
+      // Convert MD to PDF
+      const pdfDoc = await MDtoPDF(md, output);
+
       return pdfDoc;
     }
 
@@ -57,65 +59,25 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr, sendPDF}) => {
 
 export default Document;
 
-  /**
-   * Converts React HTML Components to PDF
-   * @param {*} html
-   */
-  const htmlToPDF = async (html, output = 'blob') => {
+    const MDtoPDF = async (md, output = 'blob') => {
 
-    const getTextFromChildren = (children, depth = 0) => {
-      if (!children || !children.map || typeof children === 'string') return children;
-
-      // if (children[0] && children[0].props && children[0].props.children && typeof children[0].props.children === 'string') return children[0].props.children;
-
-      let listCounter = 1;
-      let content = [];
-
-      children.map(c => {
-        const style = c.key.split('-')[0];
-        let text = [];
-
-        switch(style) {
-            case 'list':
-              text.push(`${listCounter}. `);
-              listCounter++;
-              text.push({text: getTextFromChildren(c.props.children, depth + 1)});
-              break;
-            case 'listItem':
-            case 'paragraph':
-              text.push({text: getTextFromChildren(c.props.children, depth + 1)});
-              text.push('\n');
-              break;
-            case 'strong':
-              text = getTextFromChildren(c.props.children, depth + 1);
-              break;
-            default:
-              text.push({text: getTextFromChildren(c.props.children, depth + 1)});
-              text.push('\n');
+      const styles = {
+        heading1: {
+          fontSize: 22,
+          bold: true,
+        },
+        heading2: {
+          fontSize: 16,
+          bold: true,
+        },
+        strong: {
+          bold: true
         }
+      };
 
-        content.push({text, style});
+      return new Promise((resolve, reject) => {
 
-        if (depth === 0) content.push('\n');
-
-        return c;
-      });
-
-      return content;
-    }
-
-    return new Promise((resolve, reject) => {
-        let content = getTextFromChildren(html.props.children);
-
-        const styles = {
-          heading: {
-            fontSize: 22,
-            bold: true,
-          },
-          strong: {
-            bold: true
-          }
-        };
+        const content = prepMD4PDF(md);
 
         const pdfDocGenerator = pdfMake.createPdf({content, styles});
 
@@ -137,7 +99,35 @@ export default Document;
             // pdfDocGenerator.getDataUrl((data) => {
               resolve(URL.createObjectURL(data));
             });
+        };
+
+      })
+    }
+
+    const prepMD4PDF = md => {
+      return md.match(/^(.*)$/gm).map(text => {
+        if (text.search('#') === 0) {
+          const hType = text.search('# ') + 1;
+          return {text : text.slice(hType + 1), style: `heading${hType}`};
+        } else if (text === '') {
+          return {text: '\n'};
+        } else {
+          return {text: prepInlineMD(text)};
         }
       });
+    }
 
-    };
+    const prepInlineMD = text => {
+
+      let strongTextArr = text.split('**')
+
+      if (strongTextArr.length > 1) {
+        // Address Bold
+        strongTextArr = strongTextArr.map((text,i) => {
+              if (i % 2 == 1) return {text, style:'strong'};
+                  else return {text};
+          });
+      }
+
+      return strongTextArr;
+    }
