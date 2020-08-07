@@ -97,16 +97,19 @@ export default Document;
           content,
           styles,
           header: {columns: [
-            {image: 'contentHash', fit: [30,30], margin: 2},
-            {text: `Template Hash: ${templateHash}\nDocument Hash: ${documentHash}`, margin: 5, fontSize: 8, alignment: 'right', width: 'auto'}
+            data.templateFile ? {image: 'contentHash', fit: [30,30], margin: 2} : '',
+            {text: [
+              data.templateFile ? `Template Hash: ${templateHash}\n` : '',
+              `Document Hash: ${documentHash}`
+            ], margin: 5, fontSize: 8, alignment: 'right', width: 'auto'}
           ]},
           footer: function(currentPage, pageCount) {
             return [
               {text: 'Page ' + currentPage.toString() + ' of ' + pageCount + '\n', style: 'footer'},
               {
                 text: [
-                  `Interview Url: ${data.interviewFile}\n`,
-                  `Template Url: ${data.templateFile}`
+                  data.interviewFile ? `Interview Url: ${data.interviewFile}\n` : '',
+                  data.templateFile ? `Template Url: ${data.templateFile}` : ''
                 ],
                 style: 'subfooter'
               }
