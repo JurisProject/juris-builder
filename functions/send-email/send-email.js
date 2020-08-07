@@ -53,7 +53,7 @@ exports.handler = (event, context, callback) => {
     from: `"${body.fromName}" <noreply@getjuris.com>`,
 
     replyTo: `"${body.fromName}" <${body.fromEmail}>`,
-    to: `"${body.toName} <${body.toEmail}>`,
+    to: `"${body.toName}" <${body.toEmail}>`,
     subject: body.subject ? body.subject : `${body.fromName} sent you a message from gql-modules.com`,
     text: body.message,
   }
