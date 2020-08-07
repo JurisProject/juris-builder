@@ -12,28 +12,18 @@ const EmailModal = ({pdf, isOpen, toggle, pdfData}) => {
         baseURL: '/'
     });
 
+    const resetModal = () => {
+
+        setErrorMessage(false);
+        setSuccessMessage(false);
+
+    }
+
     const _onSubmit = async e => {
         e.preventDefault();
         setSending(true);
-        console.log(e.target);
 
-        // const emailParams = {
-        //     subject: e.target.subject.value,
-        //     reply_to: {
-        //         name: e.target.fromName.value,
-        //         email: e.target.fromEmail.value
-        //     },
-        //     personalizations: [{
-        //         to: {
-        //             name: e.target.toName.value,
-        //             email: e.target.toEmail.value
-        //         }
-        //     }],
-        //     content: [{
-        //         type: 'text/plain',
-        //         value: e.target.message.value
-        //     }]
-        // };
+        resetModal();
 
         const emailParams = {
             toName: e.target.toName.value,
@@ -44,7 +34,6 @@ const EmailModal = ({pdf, isOpen, toggle, pdfData}) => {
             subject: e.target.subject.value,
             attachment: pdfData ? pdfData : false
         }
-        console.log({emailParams});
 
         try {
             const email = await sendGrid.post('/.netlify/functions/send-email', emailParams);
@@ -58,7 +47,7 @@ const EmailModal = ({pdf, isOpen, toggle, pdfData}) => {
         setSending(false);
     }
 
-    return <Modal isOpen={isOpen} centered={true}>
+    return <Modal isOpen={isOpen} centered={true} onClosed={resetModal}>
         <ModalHeader>Email Document</ModalHeader>
         <Form onSubmit={_onSubmit}>
         <ModalBody>
