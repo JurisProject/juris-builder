@@ -16,7 +16,6 @@
   "author": "Netlify",
   "license": "MIT",
   "dependencies": {
-    "@sendgrid/mail": "^7.2.3",
-    "sendmail": "1.6.1"
+    "@sendgrid/mail": "^7.2.3"
   }
 }
