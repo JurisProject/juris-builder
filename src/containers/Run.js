@@ -9,9 +9,6 @@ import testInterview from '../constants/testInterview.json';
 import Axios from 'axios';
 import Loader from '../components/Loader/Loader';
 import EmailModal from '../components/EmailModal/EmailModal';
-// import { Helmet } from 'react-helmet'
-
-// import Builder from '../components/Builder';
 
 const CodeEditor = lazy(() => import(`../components/JBBuilder/JBCodeEditor`) );
 const Interview = lazy(() => import(`../components/JBBuilder/JBInterview`) );
@@ -61,13 +58,11 @@ const Run = (props) => {
     function onInterviewUpdate(data) {
         const newFormData = {...data.data, interviewFile, templateFile};
         setFormData(newFormData);
-        // console.log({data});
 
         // window.parent.postMessage(JSON.stringify(data.data), "*" );
     }
 
     function onInterviewComplete(survey) {
-        // console.log({completeData});
 
         // Show the PDF for Download
         if (template) setInterviewData({...survey.data, interviewFile, templateFile});
