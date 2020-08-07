@@ -1,5 +1,11 @@
 // with thanks to https://github.com/Urigo/graphql-modules/blob/8cb2fd7d9938a856f83e4eee2081384533771904/website/lambda/contact.js
-const sendMail = require('sendmail')()
+const fs = require('fs');
+const sendMail = require('sendmail')({
+  dkim: { // Default: False
+    privateKey: fs.readFileSync('./getjurisbuilder.getjuris.com.pem', 'utf8'),
+    keySelector: 'getjurisbuilder'
+  }
+})
 const { validateEmail, validateLength } = require('./validations')
 
 exports.handler = (event, context, callback) => {
@@ -40,7 +46,9 @@ exports.handler = (event, context, callback) => {
   }
 
   let descriptor = {
-    from: `"${body.fromName}" <${body.fromEmail}>`,
+    from: `"${body.fromName}" <noreply@getjuris.com>`,
+
+    replyTo: `"${body.fromName}" <${body.fromEmail}>`,
     to: `"${body.toName} <${body.toEmail}>`,
     subject: body.subject ? body.subject : `${body.fromName} sent you a message from gql-modules.com`,
     text: body.message,
