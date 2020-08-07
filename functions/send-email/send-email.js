@@ -14,28 +14,19 @@ exports.handler = async (event, context) => {
   try {
     validateLength('body.toName', body.toName, 3, 50)
   } catch (e) {
-    return callback(null, {
+    return {
       statusCode: 403,
       body: e.message,
-    })
+    }
   }
 
   try {
     validateEmail('body.toEmail', body.toEmail)
   } catch (e) {
-    return callback(null, {
+    return {
       statusCode: 403,
       body: e.message,
-    })
-  }
-
-  try {
-    validateLength('body.message', body.message, 10, 1000)
-  } catch (e) {
-    return callback(null, {
-      statusCode: 403,
-      body: e.message,
-    })
+    }
   }
 
   let descriptor = {

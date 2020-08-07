@@ -4,12 +4,11 @@ import {Spinner, Container, Modal, ModalBody, Button, Row, Col} from 'reactstrap
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faAt, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
+
 import testInterview from '../constants/testInterview.json';
 import Axios from 'axios';
 import Loader from '../components/Loader/Loader';
 import EmailModal from '../components/EmailModal/EmailModal';
-
-// import Builder from '../components/Builder';
 
 const CodeEditor = lazy(() => import(`../components/JBBuilder/JBCodeEditor`) );
 const Interview = lazy(() => import(`../components/JBBuilder/JBInterview`) );
@@ -59,13 +58,11 @@ const Run = (props) => {
     function onInterviewUpdate(data) {
         const newFormData = {...data.data, interviewFile, templateFile};
         setFormData(newFormData);
-        // console.log({data});
 
         // window.parent.postMessage(JSON.stringify(data.data), "*" );
     }
 
     function onInterviewComplete(survey) {
-        // console.log({completeData});
 
         // Show the PDF for Download
         if (template) setInterviewData({...survey.data, interviewFile, templateFile});
@@ -75,15 +72,20 @@ const Run = (props) => {
         try{
 
         if (queryParams.sendPDF) {
+            const sendData = {
+                pdf: data,
+                interviewData
+            }
+
             if (queryParams.sendPDFFunc) {
                 window.parent.postMessage({
                     func: queryParams.sendPDFFunc,
-                    data
+                    data: sendData
                 }, '*');
             } else {
                 window.parent.postMessage({
                     func: 'JurisGetPDF',
-                    data
+                    data: sendData
                 },'*');
             }
         }
@@ -101,6 +103,7 @@ const Run = (props) => {
 
     return (
         <Container style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+
             <Suspense fallback={<Loader />}>
                 {interviewData ?
                     <Fragment>

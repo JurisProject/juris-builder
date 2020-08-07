@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
-import {Row, Col, Container} from 'reactstrap';
+import {Row, Col, Container, Button} from 'reactstrap';
+import {Link} from '../components/Router'
 import InterviewDemo from '../components/InterviewDemo/InterviewDemo';
 
 import ReactLogo from '../components/ReactLogo';
@@ -16,8 +17,9 @@ export default () => {
     return (
         <Fragment>
         <Row className="home-demo-hero">
-            <Col className="d-flex align-items-center" md={12} lg={6} style={{maxHeight: "100%"}}>
+            <Col className="d-flex align-items-center flex-column justify-content-center" md={12} lg={6} style={{maxHeight: "100%"}}>
                 <h1 className="text-center">Simply the Easiest Document Builder. Ever.</h1>
+                <Button tag={Link} size="lg" to="/builder" color="primary">Get Building!</Button>
             </Col>
             <Col className="p-4" md={12} lg={6} style={{maxHeight: "100%"}}>
                 <InterviewDemo />
