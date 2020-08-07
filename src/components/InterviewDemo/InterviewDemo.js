@@ -12,7 +12,7 @@ const InterviewDemo = () => {
 
     const restartInterview = async () => {
         await setOutputData(false);
-        await setIframeSrc(false);
+        await setIframeSrc('');
         await setIframeSrc(`/run?i=${interviewFile}&o=${mdTemplate}&hideUI=1&sendPDF=1`);
     }
 
