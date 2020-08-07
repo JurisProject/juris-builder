@@ -52,7 +52,7 @@ const EmailModal = ({pdf, isOpen, toggle, pdfData}) => {
             setSuccessMessage('Your email has been sent!');
         } catch (error) {
             console.log({error});
-            setErrorMessage(error);
+            setErrorMessage(typeof error === 'string' ? error : 'An error ocurred. Please check the console.');
         }
 
         setSending(false);

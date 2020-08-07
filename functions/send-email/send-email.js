@@ -19,6 +19,9 @@ exports.handler = (event, context, callback) => {
 
   const body = JSON.parse(event.body)
 
+  console.log('Sending Email');
+  console.log({body});
+
   try {
     validateLength('body.toName', body.toName, 3, 50)
   } catch (e) {
@@ -58,6 +61,8 @@ exports.handler = (event, context, callback) => {
   if (body.attachment) {
     descriptor.attachments = [{filename: 'file.pdf', encoding: 'base64', content: body.attachment}];
   }
+
+  console.log({descriptor});
 
   sendMail(descriptor, e => {
     if (e) {
