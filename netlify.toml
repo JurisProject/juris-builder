@@ -1,5 +1,11 @@
 [build]
     functions = "functions/"
 
+[context.production.environment]
+    SENDGRID_API_KEY = "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"
+
+[context.deploy-preview.environment]
+    SENDGRID_API_KEY = "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"
+
 [[plugins]]
     package = "@netlify/plugin-functions-install-core"
