@@ -4,10 +4,12 @@ import {Spinner, Container, Modal, ModalBody, Button, Row, Col} from 'reactstrap
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faAt, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
+
 import testInterview from '../constants/testInterview.json';
 import Axios from 'axios';
 import Loader from '../components/Loader/Loader';
 import EmailModal from '../components/EmailModal/EmailModal';
+// import { Helmet } from 'react-helmet'
 
 // import Builder from '../components/Builder';
 
@@ -75,15 +77,20 @@ const Run = (props) => {
         try{
 
         if (queryParams.sendPDF) {
+            const sendData = {
+                pdf: data,
+                interviewData
+            }
+
             if (queryParams.sendPDFFunc) {
                 window.parent.postMessage({
                     func: queryParams.sendPDFFunc,
-                    data
+                    data: sendData
                 }, '*');
             } else {
                 window.parent.postMessage({
                     func: 'JurisGetPDF',
-                    data
+                    data: sendData
                 },'*');
             }
         }
@@ -101,6 +108,7 @@ const Run = (props) => {
 
     return (
         <Container style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+
             <Suspense fallback={<Loader />}>
                 {interviewData ?
                     <Fragment>

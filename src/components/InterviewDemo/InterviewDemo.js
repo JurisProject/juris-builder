@@ -1,54 +1,49 @@
 import React, {lazy, Suspense, useState, useEffect, Fragment} from 'react';
-import {Spinner, Card, CardBody, CardFooter, Button, CardHeader} from 'reactstrap';
-import Axios from 'axios';
-
-// import "./InterviewDemo.scss";
-
-const Interview = lazy(() => import(`../JBBuilder/JBInterview`) );
-const DocumentPreview = lazy(() => import(`../JBBuilder/JBDocumentPreview`) );
+import {Spinner, Card, CardBody, CardFooter, Button, CardHeader, Alert} from 'reactstrap';
 
 const InterviewDemo = () => {
-
-    const [data, setData] = useState(false);
-    const [interview, setInterview] = useState(false);
-    const [template, setTemplate] = useState(false);
 
     const interviewFile = "https://raw.githubusercontent.com/konstantinbrazhnik/juris-surveys/master/test/interview.json";
     const mdTemplate = "https://raw.githubusercontent.com/konstantinbrazhnik/juris-surveys/master/test/output.md";
 
-    useEffect(() => {
-        async function getFiles() {
-            const [intFile, tempFile] = await Promise.all([
-                Axios.get(interviewFile),
-                Axios.get(mdTemplate)
-            ]);
+    const [iframeSrc, setIframeSrc] = useState(`/run?i=${interviewFile}&o=${mdTemplate}&hideUI=1&sendPDF=1`);
 
-            console.log({intFile, tempFile});
+    const [outputData, setOutputData] = useState(false);
 
-            setInterview(intFile.data);
-            setTemplate(tempFile.data);
-        }
-        getFiles();
-    }, [])
-
-    function onComplete(e) {
-        console.log({e});
-        setData(e.data);
+    const restartInterview = async () => {
+        await setOutputData(false);
+        await setIframeSrc(false);
+        await setIframeSrc(`/run?i=${interviewFile}&o=${mdTemplate}&hideUI=1&sendPDF=1`);
     }
 
-    const restartInterview = () => setData(false);
+    useEffect(() => {
+        if (window.addEventListener) window.addEventListener("message", onMessage, false);
+            else if (window.attachEvent) window.attachEvent("onmessage", onMessage, false);
+
+        console.log('Adding event listeners');
+        function onMessage(event) {
+            // Check sender origin to be trusted
+            if (event.origin !== "http://localhost:8888") return;
+
+            var data = event.data;
+
+            if (typeof(window[data.func]) == "function") {
+                window[data.func].call(null, data.data);
+            }
+        }
+
+        window.JurisGetPDF = function (pdfData) {
+            // Write your code here
+            console.log({pdfData});
+            setOutputData(pdfData.interviewData);
+        }
+    },[]);
 
     return(
         <Card style={{height: "100%"}}>
             <CardHeader>Sample Interview</CardHeader>
             <CardBody style={{overflow: "auto"}}>
-            <div className="interview-demo" style={{height: "100%"}}>
-                <Suspense fallback={<Spinner />}>
-                    {!!interview && <Fragment>
-                        {data ? <DocumentPreview data={data} mdTemplate={template} asPDF={true} /> : <Interview json={interview} onComplete={onComplete} />}
-                    </Fragment>}
-                </Suspense>
-            </div>
+                <iframe src={iframeSrc} width="100%" height="100%" style={{border: "none"}}></iframe>
             </CardBody>
             <CardFooter>
                 <Button onClick={restartInterview}>Restart</Button>
