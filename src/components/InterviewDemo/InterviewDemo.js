@@ -3,8 +3,8 @@ import {Spinner, Card, CardBody, CardFooter, Button, CardHeader, Alert} from 're
 
 const InterviewDemo = () => {
 
-    const interviewFile = "https://raw.githubusercontent.com/konstantinbrazhnik/juris-surveys/master/test/interview.json";
-    const mdTemplate = "https://raw.githubusercontent.com/konstantinbrazhnik/juris-surveys/master/test/output.md";
+    const interviewFile = "https://raw.githubusercontent.com/JurisLibrary/Builder-Demo/master/interview.json";
+    const mdTemplate = "https://raw.githubusercontent.com/JurisLibrary/Builder-Demo/master/template.md";
 
     const [iframeSrc, setIframeSrc] = useState(`/run?i=${interviewFile}&o=${mdTemplate}&hideUI=1&sendPDF=1`);
 
