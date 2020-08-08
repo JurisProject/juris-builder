@@ -18,7 +18,7 @@ export default () => {
         <Fragment>
         <Row className="home-demo-hero">
             <Col className="d-flex align-items-center flex-column justify-content-center" md={12} lg={6} style={{maxHeight: "100%"}}>
-                <h1 className="text-center">Simply the Easiest Document Builder. Ever.</h1>
+                <h1 className="text-center">The Easiest Document Builder. <br></br>Ever.</h1>
                 <Button tag={Link} size="lg" to="/builder" color="primary">Get Building!</Button>
             </Col>
             <Col className="p-4" md={12} lg={6} style={{maxHeight: "100%"}}>
