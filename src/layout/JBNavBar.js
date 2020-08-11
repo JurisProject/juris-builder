@@ -10,20 +10,17 @@ const JBNavBar = ({hide}) => {
 
     return hide ? null : (
         <Navbar id="jb-header" expand="md" dark color="dark" className={hide ? 'hide' : 'show'}>
-        <NavbarBrand tag={Link} to="/">
+        <NavbarBrand href="https://open.getjuris.com">
             <img src={JurisLogo} alt="Juris, PBC"/>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
           <NavItem>
-              <NavLink tag={Link} to="https://open.getjuris.com">Back</NavLink>
-            </NavItem>
-          <NavItem>
               <NavLink tag={Link} to="/builder">Builder</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="https://github.com/jurislibrary">Template Library</NavLink>
+              <NavLink href="https://github.com/jurislibrary">Template Library</NavLink>
             </NavItem>
             <NavItem>
                 <NavLink href="https://github.com/JurisProject/juris-builder" target="_blank">GitHub</NavLink>

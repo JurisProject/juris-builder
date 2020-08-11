@@ -75,13 +75,13 @@ const Debug = (props) => {
                                 <Form>
                                     <FormGroup>
                                         <Label>Interview File URL</Label>
-                                        <Input name="i" value={interviewFile} onChange={_handleIChange} />
+                                        <Input name="i" placeholder="example: ../interview.json" value={interviewFile} onChange={_handleIChange} />
                                     </FormGroup>
                                     <FormGroup>
                                         <Label>Template File URL</Label>
-                                        <Input name="o" value={templateFile} onChange={_handleOChange} />
+                                        <Input name="o" placeholder="example: ../template.md" value={templateFile} onChange={_handleOChange} />
                                     </FormGroup>
-                                    <Button>Set Files</Button>
+                                    <Button>Load Files</Button>
                                 </Form>
                             </CardBody>
                         </Card>

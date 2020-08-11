@@ -9,16 +9,20 @@ const JBFooter = ({hide}) => {
             <Container>
                 <Row>
                     <Col>
-                        Footer 1
+                        <h4>Handbook</h4>
+                        <p><a href="https://open.getjuris.com/docs/doc1/">Manifesto</a></p>
+                        <p><a href="https://open.getjuris.com/docs/doc2/">Mission</a></p>
+                        <p><a href="https://open.getjuris.com/docs/doc3/">Join Juris</a></p>
                     </Col>
                     <Col>
-                        Footer 1
+                        <h4>Community</h4>
+                        <p><a href="https://discord.gg/ecXCaWC">Discord</a></p>
+                        <p><a href="https://twitter.com/getjuris">Twitter</a></p>
                     </Col>
                     <Col>
-                        Footer 1
-                    </Col>
-                    <Col>
-                        Footer 1
+                        <h4>More</h4>
+                        <p><a href="https://getjuris.com/publications">Blog</a></p>
+                        <p><a href="https://github.com/jurisproject">Github</a></p>
                     </Col>
                 </Row>
             </Container>
