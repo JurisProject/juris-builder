@@ -16,11 +16,14 @@ const JBNavBar = ({hide}) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink tag={Link} to="/interviews">Interviews</NavLink>
+          <NavItem>
+              <NavLink tag={Link} to="https://open.getjuris.com">Back</NavLink>
+            </NavItem>
+          <NavItem>
+              <NavLink tag={Link} to="/builder">Builder</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/builder">Builder</NavLink>
+              <NavLink tag={Link} to="https://github.com/jurislibrary">Template Library</NavLink>
             </NavItem>
             <NavItem>
                 <NavLink href="https://github.com/JurisProject/juris-builder" target="_blank">GitHub</NavLink>
