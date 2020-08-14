@@ -109,7 +109,6 @@ const Run = (props) => {
             url:['data:application/pdf;base64,', pdfBase64].join('')
         });
         const file = new File([fileData.data], 'document.pdf', {type: fileData.headers['content-type']});
-        console.log({file});
 
         // Get Signed PDF
         const urlParams = {
@@ -119,9 +118,7 @@ const Run = (props) => {
             url: '/.netlify/functions/s3-signature',
             data: {name: file.name}
         };
-        console.log({urlParams});
         const signedUrl = await Axios(urlParams);
-        console.log({signedUrl});
 
         const uploadedFile = await Axios.put(signedUrl.data.url, file, {
             params: {
@@ -130,8 +127,6 @@ const Run = (props) => {
             },
             headers: {'content-type': 'application/octet-stream'}
         });
-
-        console.log({uploadedFile});
 
         window.parent.open(`${process.env.JURIS_URL}?pdfUrl=${uploadedFile.config.url}`, '_blank');
     }
