@@ -30,8 +30,11 @@ const Document = ({data, mdTemplate, asPDF, iFrameAttr, sendPDF}) => {
             setIframeSrc(pdfUrl);
 
             if (sendPDF) {
-              const base = await getPDF(html, 'base64', data);
-              sendPDF(base);
+              const [base, blob] = await Promise.all([
+                getPDF(html, 'base64', data),
+                getPDF(html, 'blob', data)
+              ]);
+              sendPDF(base, blob);
             }
           } else {
             setSource(mdTemp(data));

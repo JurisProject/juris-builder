@@ -28,6 +28,8 @@ const Run = (props) => {
     const [modalOpen, setModalOpen] = useState(true);
     const [emailModalOpen, setEmailModalOpen] = useState(false);
 
+    const showJuris = !!process.env.JURIS_URL;
+
     // Check Query for Anything
     let queryParams = {};
     if (typeof window !== 'undefined') queryParams = qs.parse(window.location.search);
@@ -68,13 +70,14 @@ const Run = (props) => {
         if (template) setInterviewData({...survey.data, interviewFile, templateFile});
     }
 
-    function _sendPDF(data) {
+    function _sendPDF(data, blob) {
         try{
 
         if (queryParams.sendPDF) {
             const sendData = {
                 pdf: data,
-                interviewData
+                interviewData,
+                blob
             }
 
             if (queryParams.sendPDFFunc) {
@@ -98,6 +101,41 @@ const Run = (props) => {
     }
     }
 
+    const sendWithJuris = async () => {
+        // setLoading(true);
+
+        const fileData = await Axios({
+            responseType: 'arraybuffer',
+            url:['data:application/pdf;base64,', pdfBase64].join('')
+        });
+        const file = new File([fileData.data], 'document.pdf', {type: fileData.headers['content-type']});
+        console.log({file});
+
+        // Get Signed PDF
+        const urlParams = {
+            method: 'post',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' },
+            baseURL: '/',
+            url: '/.netlify/functions/s3-signature',
+            data: {name: file.name}
+        };
+        console.log({urlParams});
+        const signedUrl = await Axios(urlParams);
+        console.log({signedUrl});
+
+        const uploadedFile = await Axios.put(signedUrl.data.url, file, {
+            params: {
+                'Content-Type': file.type,
+                'Content-Length': file.size
+            },
+            headers: {'content-type': 'application/octet-stream'}
+        });
+
+        console.log({uploadedFile});
+
+        window.parent.open(`${process.env.JURIS_URL}?pdfUrl=${uploadedFile.config.url}`, '_blank');
+    }
+
     const toggle = () => setModalOpen(!modalOpen);
     const toggleEmail = () => setEmailModalOpen(!emailModalOpen);
 
@@ -119,17 +157,17 @@ const Run = (props) => {
                                         </Button>
                                     </Col>
                                     <Col className="d-flex">
-                                        <Button size="block" color="primary" onClick={toggleEmail} className="mb-3 p-1 pt-2 d-flex flex-column align-items-center justify-content-center">
+                                        <Button disabled={!pdfBase64} size="block" color="primary" onClick={toggleEmail} className="mb-3 p-1 pt-2 d-flex flex-column align-items-center justify-content-center">
                                             <FontAwesomeIcon icon={faAt} size="3x" className="mb-2"/>
                                             <div>Email PDF</div>
                                         </Button>
                                     </Col>
-                                    <Col className="d-flex">
-                                        <Button size="block" color="primary" disabled className="mb-3 p-1 pt-2 d-flex flex-column align-items-center justify-content-center">
+                                    {showJuris && <Col className="d-flex">
+                                        <Button disabled={!pdfBase64} size="block" color="primary" onClick={sendWithJuris} className="mb-3 p-1 pt-2 d-flex flex-column align-items-center justify-content-center">
                                             <FontAwesomeIcon icon={faEnvelope} size="3x" className="mb-2"/>
-                                            <div>Mail PDF</div>
+                                            <div>Mail PDF with Juris MailRoom</div>
                                         </Button>
-                                    </Col>
+                                    </Col>}
                                 </Row>
 
                             </ModalBody>
