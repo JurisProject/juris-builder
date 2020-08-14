@@ -1,0 +1,14 @@
+{
+  "name": "s3-signature",
+  "version": "1.0.0",
+  "description": "Get S3 bucket signature",
+  "main": "s3-signature.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.734.0"
+  }
+}

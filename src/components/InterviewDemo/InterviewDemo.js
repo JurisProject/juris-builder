@@ -23,7 +23,7 @@ const InterviewDemo = () => {
         console.log('Adding event listeners');
         function onMessage(event) {
             // Check sender origin to be trusted
-            if (event.origin !== "http://localhost:8888") return;
+            if (event.origin !== "http://localhost:3002") return;
 
             var data = event.data;
 
