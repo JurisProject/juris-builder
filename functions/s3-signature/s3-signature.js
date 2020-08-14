@@ -1,6 +1,10 @@
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
-const S3 = new AWS.S3({apiVersion: '2006-03-01'});
+const S3 = new AWS.S3({
+  apiVersion: '2006-03-01',
+  accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY
+});
 
 // Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
 exports.handler = async (event, context) => {
